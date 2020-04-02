@@ -1,0 +1,34 @@
+· Memory management
+
+Java's memory management refers to the management of objects to a large extent, 
+including the allocation and release of object space.
+Object space allocation: use the new keyword to create an object
+ Release of object space: Assign the object to null. The garbage collector will 
+ be responsible for reclaiming the memory space of all "unreachable" objects.
+
+· Garbage collection process
+
+Any kind of garbage collection algorithm generally needs to do two basic things:
+
+1. Find useless objects
+
+2. Reclaim the memory space occupied by useless objects.
+The garbage collection mechanism guarantees that "useless objects" can be recycled.
+A useless object means that no variable references the object. Java's garbage collector 
+finds useless objects through related algorithms, and cleans and organizes them.
+
+· Garbage collection related algorithms
+
+1. Reference counting method
+Each object in the heap has a reference count. Once referenced, the count is incremented
+by 1. When the value of the referenced variable becomes null, the count is decremented by
+1 until the count becomes 0, indicating that it becomes a useless object. The advantage is 
+that the algorithm is simple, and the disadvantage is that "circular referenced useless 
+objects" cannot be identified.
+
+2. Reference reachability method (root search algorithm)
+The program regards all the reference relationships as a graph. 
+Starting from a node GC ROOT, it searches for the corresponding reference node.
+After finding this node, it continues to search for the reference node of this node. 
+When all reference nodes are searched, the remaining nodes It is considered as a node 
+that is not referenced, that is, a useless node.
