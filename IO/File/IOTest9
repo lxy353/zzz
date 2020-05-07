@@ -1,0 +1,113 @@
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+/**
+1.图片 读取到字节数组中
+2.字节数组写到文件
+
+获取数据， tobytearray
+ */
+public class IOTest8 {
+	public static void main(String[] args) {
+		//图片转成字节数组
+		byte[]datas = fileToByteArray("");
+		System.out.println(datas.length);
+		byteArrayToFile(datas, filePath);
+	}
+	/*
+	 * 图片到字节数组
+	 * 图片到程序 FileinputStream
+	 * 程序到字节数组Byte array output stream
+	 */
+	public static byte[] fileToByteArray(String filePath) {
+		
+		File srcFile = new File(filePath);
+		byte[] dest =null;
+		ByteArrayOutputStream oStream = null;
+		//2
+		InputStream iStream =null;
+		try {
+			 oStream=new ByteArrayOutputStream();
+			 iStream = new FileInputStream(srcFile);
+			//3
+			byte[] flush  = new byte[1024*10];// 缓存容器
+			//长度
+			int len = -1;
+			try {
+				while ((len=iStream.read(flush))!=-1) {
+					//decode
+					oStream.write(flush,0,len);//写出到字节数组
+				}
+				oStream.flush();
+				return oStream.toByteArray();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//4
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if (null!=iStream) {
+				try {
+					iStream.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			try {
+				iStream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
+		return null;
+	}
+	/*
+	 * 字节数组写出到图片
+	 * 字节数组到程序input stream
+	 * 程序写出到文件fileoutputstream
+	 */
+	public static void byteArrayToFile(byte[]src,String filePath) {
+		
+		File srcFile= new File(filePath);
+		InputStream iStream =null;
+		OutputStream oStream = null;
+		try {
+			 iStream = new ByteArrayInputStream(src);
+			 oStream = new FileOutputStream(srcFile);
+			//3
+			byte[] flush  = new byte[1024];// 缓存容器
+			//长度
+			int len = -1;
+			while ((len=iStream.read(flush))!=-1) {
+				//decode
+				oStream.write(flush);
+			}
+			oStream.flush();	
+	}catch (IOException e) {
+		e.printStackTrace();
+	}finally {
+		if (null!=oStream) {
+			try {
+				oStream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+}
