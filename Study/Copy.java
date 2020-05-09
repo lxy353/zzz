@@ -1,3 +1,5 @@
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,7 +15,10 @@ import java.io.OutputStream;
  */
 public class Copy {
 	public static void main(String[] args) {
+		long t1 = System.currentTimeMillis();
 		copy(srcPath, destPath);
+		long t2 = System.currentTimeMillis();
+		System.out.println( t2 -t1);
 		
 	}
 	/**
@@ -29,12 +34,10 @@ public class Copy {
 		File srcFile = new File("p.png");
 		File destFile= new File("pcopy.png");
 		
-		OutputStream oStream = null;
-		InputStream iStream =null;
-		try {
-			iStream = new FileInputStream(srcFile);
-			oStream=new FileOutputStream(destFile,false);
 		
+		try (InputStream iStream = new BufferedInputStream(new FileInputStream(srcFile));
+				OutputStream oStream = new BufferedOutputStream(new FileOutputStream(destFile));){
+			
 			
 			byte[] flush  = new byte[1024];// 缓存容器
 			//长度
@@ -47,23 +50,7 @@ public class Copy {
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
-		finally {
-			// 释放资源。先打开的后关闭
-			try {
-				if (null!=oStream) {
-					oStream.close();
-				}
-			} catch (IOException e) {
-			}
-			try {
-				if (null!=iStream) {
-					iStream.close();
-					
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		
 	
 		
 	}
@@ -76,8 +63,6 @@ public static void copy2(String srcPath,String destPath) {
 		
 		try (InputStream iStream = new FileInputStream(srcFile);
 				OutputStream oStream = new FileOutputStream(destFile);){
-			iStream = new FileInputStream(srcFile);
-			oStream=new FileOutputStream(destFile,false);
 		
 			
 			byte[] flush  = new byte[1024];// 缓存容器
@@ -91,25 +76,10 @@ public static void copy2(String srcPath,String destPath) {
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
-		finally {
-			// 释放资源。先打开的后关闭
-			try {
-				if (null!=oStream) {
-					oStream.close();
-				}
-			} catch (IOException e) {
-			}
-			try {
-				if (null!=iStream) {
-					iStream.close();
-					
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		
 		}
 	
 		
 	}
-	}
+	
 
