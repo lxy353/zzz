@@ -22,7 +22,7 @@ public class StartThread extends Thread{
 	public static void main(String[] args) {
 		//启动
 		StartThread startThread = new StartThread();//创建子类对象
-		//startThread.start();
+		//startThread.start(); //不保证立即调用cPU
 		startThread.run();//普通方法调用
 		for (int i = 0; i <20; i++) {
 			System.out.println("22");

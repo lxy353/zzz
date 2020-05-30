@@ -1,6 +1,6 @@
 package com.lxy;
 /**
- * 共享资源
+ * 共享资源,并发（线程安全）
  * @author lxz35
  *
  */
