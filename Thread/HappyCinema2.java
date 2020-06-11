@@ -6,6 +6,7 @@ public class HappyCinema2 {
 	 * 
 	 */
 	public static void main(String[] args) {
+		
 		List<Integer>available = new ArrayList<Integer>();
 		available.add(1);
 		available.add(2);
@@ -14,9 +15,11 @@ public class HappyCinema2 {
 		available.add(5);
 		available.add(6);
 		available.add(7);
+		
 		List<Integer> seats1 = new ArrayList<Integer>();
 		seats1.add(1);
 		seats1.add(2);
+		
 		List<Integer> seats2 = new ArrayList<Integer>();
 		seats2.add(4);
 		seats2.add(5);
