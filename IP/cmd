@@ -1,0 +1,3 @@
+netstat -ano
+netstat -ano|findstr "134"
+tasklist|findstr "135"
