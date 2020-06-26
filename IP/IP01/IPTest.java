@@ -2,7 +2,7 @@
  * Inetaddress
  * 两个成员方法
  * 1.gethostaddress:返回地址
- * 2.gethoustname:返回主人名字
+ * 2.gethoustname:返回主人名字·
  */
 import java.net.InetAddress;
 
