@@ -1,4 +1,4 @@
-package com.lxy.chat01;
+package com.lxy.chat02;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -8,7 +8,8 @@ import java.net.Socket;
 
 /**
  * 在线聊天室：客户端
- * 目标：实现一个客户可以正常首发多条消息
+ * 目标：实现多个客户可以正常首发多条消息
+ * 问题：其他客户必须等待，才可以继续
  * @author 
  *
  */
@@ -19,6 +20,7 @@ public class Chat2 {
 		//1.指定端口 使用server socket 创建服务器
 		ServerSocket socket = new ServerSocket(9999);
 		//2阻塞是等待连接accept
+		while (true) {
 		Socket clientSocket = socket.accept();
 		System.out.println("一个客户建立了连接");
 		//3接受消息
@@ -36,6 +38,8 @@ public class Chat2 {
 		dos.close();
 		dis.close();
 		clientSocket.close();
+		}
+		
 	}
 
 }

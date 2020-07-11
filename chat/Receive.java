@@ -1,4 +1,4 @@
-package com.lxy.chat03;
+package com.lxy.chat02;
 /**
  * 使用多线程封装：接受端
  * 1.接受消息

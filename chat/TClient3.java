@@ -1,4 +1,4 @@
-package com.lxy.chat03;
+package com.lxy.chat02;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -13,7 +13,20 @@ public class TClient3 {
 		System.out.println("-----client-----");
 		Socket clientSocket = new Socket("localhost",9999);
 		// 客户端发送消息
-		new Thread(new Send(clientSocket)).start();
-		new Thread(new Receive(clientSocket)).start();
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());		
+		DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
+		Boolean isBoolean=true;
+		while (isBoolean) {
+		String msg =bufferedReader.readLine();
+		dos.writeUTF(msg);
+		dos.flush();
+		//获取消息
+		 msg = dis.readUTF();
+		 System.out.println(msg);
+	}
+		 dos.close();
+		 dis.close();
+		 clientSocket.close();
 	}
 }

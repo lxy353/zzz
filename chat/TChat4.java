@@ -6,19 +6,20 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Struct;
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 
 /**
  * 在线聊天室：客户端
- * 目标：封装使用多线程实现多个客户可以正常首发多条消息
- * 问题：其他客户必须等待，才可以继续
- * 1代码太多不好维护
- * 2客户端读写没有分开 必须先写houdu
+ * 目标：加容器实现群聊
  * 
  * @author 
  *
  */
 
-public class TChat3 {
+public class TChat4 {
+	private static CopyOnWriteArrayList<Channel> all = new CopyOnWriteArrayList<Channel>();
 	public static void main(String[] args) throws IOException {
 		System.out.println("-----server-----");
 		//1.指定端口 使用server socket 创建服务器
@@ -27,7 +28,9 @@ public class TChat3 {
 		while (true) {
 			Socket clientSocket = socket.accept();
 			System.out.println("一个客户建立了连接");
-			new Thread(new Channel()).start(); ;
+			Channel channel = new Channel();
+			all.add(channel);//管理所以成员
+			new Thread(channel).start(); ;
 		}
 		
 	}
@@ -67,6 +70,18 @@ public class TChat3 {
 			}
 			return msg;
 		}
+		//发给其他人
+		/*
+		 * 获取自己的消息发给其他人
+		 */
+		private void SendOthers(String msg) {
+			for (Channel other:all) {
+				if (other == this) {
+					continue;
+				}
+				other.Send(msg);
+			}
+		}
 		//释放资源
 		private void release() {
 			this.isBoolean = false;
@@ -77,8 +92,8 @@ public class TChat3 {
 			while (isBoolean) {
 				String msg= receive();
 				if (!msg.equals("")) {
-					Send(msg);
-					
+					//Send(msg);
+					SendOthers(msg);
 				}
 				
 			}
