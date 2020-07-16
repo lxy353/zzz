@@ -32,22 +32,22 @@ public class XmlTest01 {
 
 }
 class PersonHandler extends DefaultHandler2{
-	@Override
+		@Override
 	public void startDocument() throws SAXException {
 		System.out.println("解析文档开始");
 		super.startDocument();
 	}
-	@Override
+		@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		System.out.println(qName+"---解析开始");
 		super.startElement(uri, localName, qName, attributes);
 	}
-	@Override
+		@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		System.out.println(qName+"---解析结束");
 		super.endElement(uri, localName, qName);
 	}
-	@Override
+		@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		String string = new String(ch,start,length).trim();
 		if (string.length()>0) {
@@ -58,7 +58,7 @@ class PersonHandler extends DefaultHandler2{
 		
 		super.characters(ch, start, length);
 	}
-	@Override
+		@Override
 	public void endDocument() throws SAXException {
 		System.out.println("解析文档结束");
 		super.endDocument();
