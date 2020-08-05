@@ -1,6 +1,6 @@
 package com.lxy.test;
 /**
- * 测试java.lang.class对象的获取方式
+ * 测试 各种类型的对应  class interface enum annotation primitive java.lang.class对象的获取方式
  * @author jakel
  *
  */
@@ -27,9 +27,11 @@ public class Demo01 {
 			
 			int[] a = new int[10];
 			int[] a2 = new int[30];
+			int[][] a3 = new int[30][3];
 			
 			System.out.println(a.getClass().hashCode());
 			System.out.println(a2.getClass().hashCode());
+			System.out.println(a3.getClass().hashCode());
 			
 		} catch (ClassNotFoundException e) {
 			
